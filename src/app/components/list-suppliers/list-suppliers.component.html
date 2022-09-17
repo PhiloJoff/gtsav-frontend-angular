@@ -1,0 +1,32 @@
+<div class="container mt-2">
+    <ng-container *ngIf="suppliers$ | async; else failureOrLoading">
+        <div class="card">
+            <div class="card-header">Les fournisseurs</div>
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Nom</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let supplier of suppliers$ | async" >
+                            <th>{{supplier.id}}</th>
+                            <th>{{supplier.name}}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #failureOrLoading>
+        <ng-container *ngIf="errorMessage; else loading">
+            <div class="text-danger" *ngIf="errorMessage">
+                <h2>{{errorMessage}}</h2>
+            </div>
+        </ng-container>
+        <ng-template #loading>
+            <h3 class="text-important">Chargement en cours</h3>
+        </ng-template>
+    </ng-template>
+</div>

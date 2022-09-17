@@ -1,0 +1,49 @@
+<div class="container mt-2">
+    <ng-container *ngIf="models$ | async; else failureOrLoading">
+        <div class="card">
+            <div class="card-header">Les modeles</div>
+            <div class="card-body">
+                <div *ngIf="searchModelFormGroup">
+                    <span>{{searchModelFormGroup.value | json}}</span>
+                    <form [formGroup]="searchModelFormGroup" (ngSubmit)="handleSearchModels()">
+                        <div class="input-group">
+                            <label class="input-group-text">Nom :</label>
+                            <input type="text" formControlName="name" class="form-control">
+                            <button class="btn btn-info">Rechercher</button>
+                        </div>
+                    </form>
+
+                </div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th><th>Nom</th><th>Fournisseur</th><th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let model of models$ | async" >
+                            <th>{{model.id}}</th>
+                            <th>{{model.name}}</th>
+                            <th>{{model.supplier.name}}</th>
+                            <th>
+                                <div style="display: flex;">
+                                    <button class="btn btn-danger" (click)="handleDeleteModel(model.id)">Supprimer</button>
+                                </div>
+                            </th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </ng-container>
+    <ng-template #failureOrLoading>
+        <ng-container *ngIf="errorMessage; else loading">
+            <div class="text-danger" *ngIf="errorMessage">
+                <h2>{{errorMessage}}</h2>
+            </div>
+        </ng-container>
+        <ng-template #loading>
+            <h3 class="text-important">Chargement en cours</h3>
+        </ng-template>
+    </ng-template>
+</div>
