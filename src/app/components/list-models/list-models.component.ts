@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { catchError, Observable, throwError } from 'rxjs';
+import { Router } from '@angular/router';
+import { catchError, map, Observable, throwError } from 'rxjs';
 import { ModelModel } from 'src/app/models/model.model';
 import { ModelService } from 'src/app/services/model.service';
 
@@ -15,7 +16,7 @@ export class ListModelsComponent implements OnInit {
   searchModelFormGroup: FormGroup | undefined;
   searchName: string = "";
 
-  constructor(private modelService: ModelService, private formBuilder: FormBuilder) { }
+  constructor(private modelService: ModelService, private formBuilder: FormBuilder, private router: Router) { }
 
   ngOnInit(): void {
     this.searchModelFormGroup = this.formBuilder.group({
@@ -40,16 +41,26 @@ export class ListModelsComponent implements OnInit {
     );
   }
 
-  public handleDeleteModel(id:string): void {
-    console.log(id);
-    this.modelService.deleteModel(id).subscribe( {
+  public handleDeleteModel(model: ModelModel): void {
+    console.log(model);
+    this.modelService.deleteModel(model.id).subscribe( {
       next: () => {
-        this.handleSearchModels();
+        this.models$ = this.models$?.pipe(
+          map(models => {
+            const index = models.indexOf(model);
+            models.slice(index, 1);
+            return models
+          })
+        );
       },
       error: (err) => {
         console.log("erreur de suppresion : ", err);
       }
     });
+  }
+  
+  public handleNewModel() {
+    this.router.navigateByUrl("/new-model");
   }
 
 }

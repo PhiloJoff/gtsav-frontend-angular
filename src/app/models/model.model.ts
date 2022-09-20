@@ -1,6 +1,6 @@
 import { SupplierModel } from './supplier.model'
 export interface ModelModel {
-    id: string;
+    id: string | undefined;
     name: string;
     supplier: SupplierModel;
 }

@@ -8,13 +8,17 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http'
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { FormModelComponent } from './form-model/form-model.component';
+import {NewModelComponent} from "./components/new-model/new-model.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
     ListSupplierComponent,
-    ListModelsComponent
+    ListModelsComponent,
+    FormModelComponent,
+    NewModelComponent
   ],
   imports: [
     BrowserModule,

@@ -5,8 +5,10 @@
             <div class="card-body">
                 <div *ngIf="searchModelFormGroup">
                     <span>{{searchModelFormGroup.value | json}}</span>
+                    
                     <form [formGroup]="searchModelFormGroup" (ngSubmit)="handleSearchModels()">
                         <div class="input-group">
+                            <button class="btn btn-primary" (click)="handleNewModel()">Ajouter</button>
                             <label class="input-group-text">Nom :</label>
                             <input type="text" formControlName="name" class="form-control">
                             <button class="btn btn-info">Rechercher</button>
@@ -27,7 +29,7 @@
                             <th>{{model.supplier.name}}</th>
                             <th>
                                 <div style="display: flex;">
-                                    <button class="btn btn-danger" (click)="handleDeleteModel(model.id)">Supprimer</button>
+                                    <button class="btn btn-danger" (click)="handleDeleteModel(model)">Supprimer</button>
                                 </div>
                             </th>
                         </tr>

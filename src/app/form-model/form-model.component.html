@@ -1,0 +1,33 @@
+<div class="container mt-5">
+  <div class="row custom-wrapper">
+    <h2 class="mb-3 text-center">Ajouter un modele</h2>
+    <form *ngIf="formModel" [formGroup]="formModel" (ngSubmit)="onSubmit()">
+      <div class="d-grid">
+        <div class="input-group mb-3">
+            <label class="input-group-text">Nom :</label>
+            <input
+              type="text"
+              formControlName="name" 
+              class="form-control"
+            />
+        </div>
+        <div class="input-group">
+            <label class="input-group-text mb-3">Fournisseur :</label>
+            
+            <select
+              class="form-select mb-3"
+              formControlName="supplier"
+            >
+              <option selected value=null>Choisir le fournisseur</option>
+              <option *ngFor="let supplier of supplierList | async" [ngValue]="supplier">
+                {{ supplier.name }}
+              </option>
+            </select>
+        </div>
+        <button type="submit" class="btn btn-danger btn-lg btn-block">
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

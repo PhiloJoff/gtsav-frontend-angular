@@ -20,7 +20,11 @@ export class ModelService {
     return this.http.get<Array<ModelModel>>(`${this.apiUrl}/models/search?name=${name}`);
   }
   
-  public deleteModel(id: string): Observable<any> {
+  public deleteModel(id: string | undefined): Observable<any> {
     return this.http.delete(`${this.apiUrl}/models/${id}`);
+  }
+
+  public addModel(model: ModelModel): Observable<ModelModel> {
+    return this.http.post<ModelModel>(`${this.apiUrl}/models/add`,model);
   }
 }

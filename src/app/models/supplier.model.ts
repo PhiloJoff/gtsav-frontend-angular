@@ -1,4 +1,4 @@
 export interface SupplierModel {
-    id: string;
+    id: string | undefined;
     name: string;
 }
